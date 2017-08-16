@@ -1,11 +1,13 @@
+#!/usr/bin/env python
 '''
 Created on 27 May 2016
 
 @author: samuel.downton
 '''
 
-import  random, fractions
-from Generator.egcd import isprime, mulinv, mod_exp
+import  random
+import fractions
+from egcd import isprime, mulinv, mod_exp
 
 min_prime = 1000000
 max_prime = 1010000
@@ -25,11 +27,11 @@ print "n =", n
 '''
 Calculate "Totient" of n Totient is number of numbers less than n which are coprime with n.
 Coprimes have only a common factor of 1
-phi(n) = phi(q*p) = phi(q)*phi(p) = (p-1)(q-1) as totient of a prime, p, is p - 1
+phi(n) = phi(q*p) = phi(q)*phi(p) = (p-1)(q-1) as for a prime, p, phi = p - 1
 '''
 
 phi_n = (p - 1) * (q - 1)
-print "Phi_n = ", phi_n
+print "phi(n) = ", phi_n
 
 '''
 Pick a number with a greatest common divisor of 1 with Phi n
@@ -39,13 +41,12 @@ In reality 65537 usually used, but we will pick something smaller to speed thing
 
 pub = 0
 i = 2
-loop_through = True
-while loop_through:
+
+while True:
     if fractions.gcd(i, phi_n) == 1:
         pub = i
-        loop_through = False
-    i+=1
-    
+        break
+    i += 1
 print "Public key is ", pub
 
 # Find the number that is the inverse of the public key mod phi_n such that (public * x) mod phi_n = 1 
